@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '8.0'
+
+target 'AWWebView_Example' do
+  pod 'AWWebView', :path => '../'
+
+  target 'AWWebView_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
