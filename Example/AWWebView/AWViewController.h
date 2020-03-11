@@ -7,7 +7,8 @@
 //
 
 @import UIKit;
+#import <AWWebViewController.h>
 
-@interface AWViewController : UIViewController
+@interface AWViewController : AWWebViewController
 
 @end

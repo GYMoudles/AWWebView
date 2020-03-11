@@ -24,6 +24,7 @@
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		7A29E8F4D5852F7DF1F6FD28 /* Pods_AWWebView_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 143B35A1873125C237D362D6 /* Pods_AWWebView_Example.framework */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
+		B9358B8C2418ADD7000999BB /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = B9358B8B2418ADD7000999BB /* test.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,10 +39,10 @@
 
 /* Begin PBXFileReference section */
 		0B14BCBCBAFB9CF5217B0B0E /* Pods_AWWebView_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AWWebView_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		137DEEB8B8D54B5F33F99951 /* AWWebView.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = AWWebView.podspec; path = ../AWWebView.podspec; sourceTree = "<group>"; };
+		137DEEB8B8D54B5F33F99951 /* AWWebView.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = AWWebView.podspec; path = ../AWWebView.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		143B35A1873125C237D362D6 /* Pods_AWWebView_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AWWebView_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1864AEDC59E25F1FF1AE4F2D /* Pods-AWWebView_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AWWebView_Tests.debug.xcconfig"; path = "Target Support Files/Pods-AWWebView_Tests/Pods-AWWebView_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		4565C1AA9663F8A092BCCD63 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		4565C1AA9663F8A092BCCD63 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		4A3BD548A585BDB7396525B6 /* Pods-AWWebView_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AWWebView_Example.debug.xcconfig"; path = "Target Support Files/Pods-AWWebView_Example/Pods-AWWebView_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* AWWebView_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AWWebView_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -65,7 +66,8 @@
 		63E4BF754108D5847BAB83F2 /* Pods-AWWebView_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AWWebView_Tests.release.xcconfig"; path = "Target Support Files/Pods-AWWebView_Tests/Pods-AWWebView_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		AD786C0C9358810DDBC3A117 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		AD786C0C9358810DDBC3A117 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		B9358B8B2418ADD7000999BB /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test.html; sourceTree = "<group>"; };
 		EF87C4FB562F7E37CD0115CA /* Pods-AWWebView_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AWWebView_Example.release.xcconfig"; path = "Target Support Files/Pods-AWWebView_Example/Pods-AWWebView_Example.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -103,7 +105,6 @@
 				1864AEDC59E25F1FF1AE4F2D /* Pods-AWWebView_Tests.debug.xcconfig */,
 				63E4BF754108D5847BAB83F2 /* Pods-AWWebView_Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -144,6 +145,7 @@
 		6003F593195388D20070C39A /* Example for AWWebView */ = {
 			isa = PBXGroup;
 			children = (
+				B9358B8B2418ADD7000999BB /* test.html */,
 				6003F59C195388D20070C39A /* AWAppDelegate.h */,
 				6003F59D195388D20070C39A /* AWAppDelegate.m */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
@@ -258,6 +260,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -280,6 +283,7 @@
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
+				B9358B8C2418ADD7000999BB /* test.html in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -303,10 +307,12 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-AWWebView_Example/Pods-AWWebView_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AWWebView/AWWebView.framework",
+				"${BUILT_PRODUCTS_DIR}/WebViewJavascriptBridge/WebViewJavascriptBridge.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWWebView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebViewJavascriptBridge.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -501,6 +507,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -517,6 +524,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

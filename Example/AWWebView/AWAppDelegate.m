@@ -7,12 +7,18 @@
 //
 
 #import "AWAppDelegate.h"
+#import "AWViewController.h"
 
 @implementation AWAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    
+    AWViewController *vc = [AWViewController new];
+    self.window.rootViewController = vc;
+    [self.window makeKeyAndVisible];
+   
     return YES;
 }
 

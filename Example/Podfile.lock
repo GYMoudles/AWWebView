@@ -1,0 +1,23 @@
+PODS:
+  - AWWebView (0.1.0):
+    - WebViewJavascriptBridge
+  - WebViewJavascriptBridge (6.0.3)
+
+DEPENDENCIES:
+  - AWWebView (from `../`)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - WebViewJavascriptBridge
+
+EXTERNAL SOURCES:
+  AWWebView:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  AWWebView: 77f80158df8dde7bb11b808f3027ea77e97f7bec
+  WebViewJavascriptBridge: 7f5bc4d3581e672e8f32bd0f812d54bc69bb8e29
+
+PODFILE CHECKSUM: 89e757e63d54a8b98550ccb2d406865eb4952a32
+
+COCOAPODS: 1.9.0
