@@ -49,7 +49,8 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
     [super viewDidDisappear:animated];
     
     [_jsBridge removeHandler:kClientRegistedMethodName];
-    
+    _webView.UIDelegate = nil;
+    _webView.navigationDelegate = nil;
 }
 
 
