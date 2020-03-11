@@ -15,7 +15,6 @@
     <button onclick="handleBtnAction()">点击按钮调用原生的 showAlertView 方法</button>
 </body>
 <script>
-
     const clientRegistedMethodName = "clientRegistedMethod"; // 客户端注册的js handle
     const jsHandleFunctionName = "jsRegistedFunction"; // js注册的方法名称
 
@@ -26,11 +25,11 @@
         if (window.WVJBCallbacks) {
             return window.WVJBCallbacks.push(callback);
         }
-        window.WVJBCallbacks = [callback]; // 创建一个 WVJBCallbacks 全局属性数组，并将 callback 插入到数组中。
-        var WVJBIframe = document.createElement('iframe'); // 创建一个 iframe 元素
-        WVJBIframe.style.display = 'none'; // 不显示
-        WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__'; // 设置 iframe 的 src 属性
-        document.documentElement.appendChild(WVJBIframe); // 把 iframe 添加到当前文导航上。
+        window.WVJBCallbacks = [callback];
+        var WVJBIframe = document.createElement('iframe');
+        WVJBIframe.style.display = 'none';
+        WVJBIframe.src = 'https://__bridge_loaded__';
+        document.documentElement.appendChild(WVJBIframe);
         setTimeout(function () {
             document.documentElement.removeChild(WVJBIframe)
         }, 0)
@@ -39,7 +38,7 @@
     // 这里主要是注册 JS 方法。
     setupWebViewJavascriptBridge(function (bridge) {
         bridge.registerHandler(jsHandleFunctionName, function (data, responseCallback) {
-            
+
             document.getElementById("text2").innerText = data;
 
             result = {

@@ -10,7 +10,7 @@
 
 @interface AWWebViewController ()<WKUIDelegate, WKNavigationDelegate>
 
-@property (nonatomic, strong) WebViewJavascriptBridge *jsBridge;
+@property (nonatomic, strong) WKWebViewJavascriptBridge *jsBridge;
 
 @end
 
@@ -36,12 +36,16 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
     // UI代理
     _webView.UIDelegate = self;
     // 导航代理
-    _webView.navigationDelegate = self;
+    // _webView.navigationDelegate = self; // 用了jsBridge，使用setWebViewDelegate方法
+    
     // 是否允许手势左滑返回上一级, 类似导航控制的左滑返回
     _webView.allowsBackForwardNavigationGestures = YES;
     
-    _jsBridge = [WebViewJavascriptBridge bridgeForWebView:_webView];
-
+    _jsBridge = [WKWebViewJavascriptBridge bridgeForWebView:_webView];
+    
+    [_jsBridge setWebViewDelegate:self];
+    
+    
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -88,11 +92,11 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
     NSMutableString *mutStr = [NSMutableString stringWithString:jsonString];
     NSRange range = {0, jsonString.length};
     
-    //去掉字符串中的空格
+    // 去掉字符串中的空格
     [mutStr replaceOccurrencesOfString:@" " withString:@"" options:NSLiteralSearch range:range];
     NSRange range2 = {0, mutStr.length};
     
-    //去掉字符串中的换行符
+    // 去掉字符串中的换行符
     [mutStr replaceOccurrencesOfString:@"\n" withString:@"" options:NSLiteralSearch range:range2];
     return mutStr;
 }
