@@ -3,8 +3,83 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
     <title>原生js交互 测试</title>
+    <script>
+        
+        const clientRegistedMethodName = "clientRegistedMethod"; // 客户端注册的js handle
+        const jsHandleFunctionName = "jsRegistedFunction"; // js注册的方法名称
+
+        function setupWebViewJavascriptBridge(callback) {
+            if (window.WebViewJavascriptBridge) {
+                alert(1);
+                return callback(WebViewJavascriptBridge);
+            } else if (window.WVJBCallbacks) {
+                alert(2)
+                return window.WVJBCallbacks.push(callback);
+            } else {
+                document.addEventListener(
+                    'WebViewJavascriptBridgeReady',
+                    function () {
+                        alert(3);
+                        return callback(WebViewJavascriptBridge)
+                    },
+                    false
+                );
+            }
+            window.WVJBCallbacks = [callback];
+            var WVJBIframe = document.createElement('iframe');
+            WVJBIframe.style.display = 'none';
+            WVJBIframe.src = 'https://__bridge_loaded__';
+            document.documentElement.appendChild(WVJBIframe);
+            setTimeout(function () {
+                document.documentElement.removeChild(WVJBIframe)
+            }, 0)
+        }
+
+        // 这里主要是注册 JS 方法。
+        setupWebViewJavascriptBridge(function (bridge) {
+
+            bridge.registerHandler(jsHandleFunctionName, function (data, responseCallback) {
+
+                alert(data);
+
+                document.getElementById("text2").innerText = data;
+
+                result = {
+                    info: 'js执行后返回的结果'
+                };
+                responseCallback(JSON.stringify(result));
+            });
+
+
+            // 初始化
+            bridge.init(function (message, responseCallback) {
+                var data = {
+                    'Javascript Responds': 'Wee!'
+                };
+                responseCallback(data);
+            });
+        });
+
+
+
+        function handleBtnAction() {
+
+            param = {
+                actionID: 1,
+                param: {
+                    key1: 1,
+                    key2: '2',
+                }
+            }
+
+            WebViewJavascriptBridge.callHandler(clientRegistedMethodName, JSON.stringify(param), function (result) {
+                // js 调用客户端， 客户端返回的结果
+                document.getElementById("text").innerText = result;
+            })
+        }
+    </script>
 </head>
 
 <body>
@@ -14,58 +89,7 @@
     </div>
     <button onclick="handleBtnAction()">点击按钮调用原生的 clientRegistedMethod 方法</button>
 </body>
-<script>
-    const clientRegistedMethodName = "clientRegistedMethod"; // 客户端注册的js handle
-    const jsHandleFunctionName = "jsRegistedFunction"; // js注册的方法名称
 
-    function setupWebViewJavascriptBridge(callback) {
-        if (window.WebViewJavascriptBridge) {
-            return callback(WebViewJavascriptBridge);
-        }
-        if (window.WVJBCallbacks) {
-            return window.WVJBCallbacks.push(callback);
-        }
-        window.WVJBCallbacks = [callback];
-        var WVJBIframe = document.createElement('iframe');
-        WVJBIframe.style.display = 'none';
-        WVJBIframe.src = 'https://__bridge_loaded__';
-        document.documentElement.appendChild(WVJBIframe);
-        setTimeout(function () {
-            document.documentElement.removeChild(WVJBIframe)
-        }, 0)
-    }
-
-    // 这里主要是注册 JS 方法。
-    setupWebViewJavascriptBridge(function (bridge) {
-        bridge.registerHandler(jsHandleFunctionName, function (data, responseCallback) {
-
-            document.getElementById("text2").innerText = data;
-
-            result = {
-                info: 'js执行的结果'
-            };
-            responseCallback(JSON.stringify(result));
-        });
-    });
-
-
-
-
-    function handleBtnAction() {
-
-        param = {
-            actionID: 1,
-            param: {
-                key1: 1,
-                key2: '2',
-            }
-        }
-        WebViewJavascriptBridge.callHandler(clientRegistedMethodName, JSON.stringify(param), function (result) {
-            // js 调用客户端， 客户端返回的结果
-            document.getElementById("text").innerText = result;
-        })
-    }
-</script>
 
 <style>
     .test {

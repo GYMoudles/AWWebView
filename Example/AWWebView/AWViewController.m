@@ -9,7 +9,9 @@
 #import "AWViewController.h"
 
 @interface AWViewController ()
-
+{
+    int _cnt;
+}
 @end
 
 @implementation AWViewController
@@ -19,7 +21,8 @@
     [super viewDidLoad];
 	
     
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"test" withExtension:@"html"];
+//    NSURL *url = [[NSBundle mainBundle] URLForResource:@"test" withExtension:@"html"];
+    NSURL *url = [NSURL URLWithString:@"http://10.20.56.224/test.html"];
     [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:url]];
     
     
@@ -38,7 +41,8 @@
     
     [self registerJSHandle:^(id data, WVJBResponseCallback responseCallback) {
         NSLog(@"dataFrom JS : %@",data);
-        responseCallback([self convertToJsonData:@{@"data": @1}]);
+        _cnt ++;
+        responseCallback([self convertToJsonData:@{@"data": @(_cnt)}]);
     }];
     
     
