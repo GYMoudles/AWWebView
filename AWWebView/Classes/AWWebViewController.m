@@ -25,24 +25,23 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    _webView = [[WKWebView alloc] init];
-    [self.view addSubview:_webView];
+    [self.view addSubview:self.webView];
     
-    _webView.translatesAutoresizingMaskIntoConstraints = NO;
-    NSArray<NSLayoutConstraint *> * constraints1 = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[w]|" options:0 metrics:nil views:@{@"w": _webView}];
-    NSArray<NSLayoutConstraint *> * constraints2 = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[w]|" options:0 metrics:nil views:@{@"w": _webView}];
+    self.webView.translatesAutoresizingMaskIntoConstraints = NO;
+    NSArray<NSLayoutConstraint *> * constraints1 = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[w]|" options:0 metrics:nil views:@{@"w": self.webView}];
+    NSArray<NSLayoutConstraint *> * constraints2 = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[w]|" options:0 metrics:nil views:@{@"w": self.webView}];
     [self.view addConstraints:constraints1];
     [self.view addConstraints:constraints2];
     
     // UI代理
-    _webView.UIDelegate = self;
+    self.webView.UIDelegate = self;
     // 导航代理
     // _webView.navigationDelegate = self; // 用了jsBridge，使用setWebViewDelegate方法
     
     // 是否允许手势左滑返回上一级, 类似导航控制的左滑返回
-    _webView.allowsBackForwardNavigationGestures = YES;
+    self.webView.allowsBackForwardNavigationGestures = YES;
     
-    _jsBridge = [WKWebViewJavascriptBridge bridgeForWebView:_webView];
+    _jsBridge = [WKWebViewJavascriptBridge bridgeForWebView:self.webView];
     
     [_jsBridge setWebViewDelegate:self];
     
@@ -54,8 +53,8 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
     [super viewDidDisappear:animated];
     
     [_jsBridge removeHandler:kClientRegistedMethodName];
-    _webView.UIDelegate = nil;
-    _webView.navigationDelegate = nil;
+    self.webView.UIDelegate = nil;
+    self.webView.navigationDelegate = nil;
 }
 
 - (void)setUrlString:(NSString *)urlString
@@ -87,6 +86,7 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
 }
 
 
+
 #pragma mark- Helper
 - (NSString *)convertToJsonData:(NSDictionary *)dict
 {
@@ -110,6 +110,16 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
     // 去掉字符串中的换行符
     [mutStr replaceOccurrencesOfString:@"\n" withString:@"" options:NSLiteralSearch range:range2];
     return mutStr;
+}
+
+#pragma mark- lazy
+
+- (WKWebView *)webView
+{
+    if (nil == _webView) {
+        _webView = [[WKWebView alloc]init];
+    }
+    return _webView;
 }
 
 
