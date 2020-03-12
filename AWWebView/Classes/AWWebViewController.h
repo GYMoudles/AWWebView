@@ -13,7 +13,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSString *const kJSHandleFunctionName;/// js端 注册的方法名称
 
 
 @interface AWWebViewController : UIViewController

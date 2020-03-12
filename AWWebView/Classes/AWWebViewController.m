@@ -15,7 +15,7 @@
 @end
 
 
-static NSString *kClientRegistedMethodName = @"clientRegistedMethod"; // 客户端注册的js handle
+NSString *const kClientRegistedMethodName = @"clientRegistedMethod"; // 客户端注册的js handle
 NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册的方法名称
 
 @implementation AWWebViewController
@@ -33,6 +33,15 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
     [self.view addConstraints:constraints1];
     [self.view addConstraints:constraints2];
     
+    
+    
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
     // UI代理
     self.webView.UIDelegate = self;
     // 导航代理
@@ -42,10 +51,7 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
     self.webView.allowsBackForwardNavigationGestures = YES;
     
     _jsBridge = [WKWebViewJavascriptBridge bridgeForWebView:self.webView];
-    
     [_jsBridge setWebViewDelegate:self];
-    
-    
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -54,7 +60,7 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
     
     [_jsBridge removeHandler:kClientRegistedMethodName];
     self.webView.UIDelegate = nil;
-    self.webView.navigationDelegate = nil;
+//    self.webView.navigationDelegate = nil;
 }
 
 - (void)setUrlString:(NSString *)urlString
