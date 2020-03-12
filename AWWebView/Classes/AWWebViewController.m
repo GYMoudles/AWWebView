@@ -19,6 +19,7 @@ static NSString *kClientRegistedMethodName = @"clientRegistedMethod"; // 客户�
 NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册的方法名称
 
 @implementation AWWebViewController
+@synthesize urlString = _urlString;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -55,6 +56,14 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
     [_jsBridge removeHandler:kClientRegistedMethodName];
     _webView.UIDelegate = nil;
     _webView.navigationDelegate = nil;
+}
+
+- (void)setUrlString:(NSString *)urlString
+{
+    _urlString = [urlString copy];
+    
+    NSURL *url = [NSURL URLWithString:_urlString];
+    [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
 }
 
 
