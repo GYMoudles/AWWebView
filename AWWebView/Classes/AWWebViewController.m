@@ -60,8 +60,10 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
 
 - (void)setUrlString:(NSString *)urlString
 {
+    if (nil == urlString) {
+        return;
+    }
     _urlString = [urlString copy];
-    
     NSURL *url = [NSURL URLWithString:_urlString];
     [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
 }
