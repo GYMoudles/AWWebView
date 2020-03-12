@@ -22,8 +22,8 @@ extern NSString *const kJSHandleFunctionName;/// js端 注册的方法名称
 @property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic,   copy) NSString *urlString;
 
-- (void)registerJSHandle:(WVJBHandler)handler;
-- (void)callJSFunction:(NSDictionary *)param responseCallback:(WVJBResponseCallback)responseCallback;
+- (void)registerJSHandle:(nullable WVJBHandler)handler;
+- (void)callJSFunction:(nullable NSDictionary *)param responseCallback:(nullable WVJBResponseCallback)responseCallback;
 
 - (NSString *)convertToJsonData:(NSDictionary *)dict;
 @end

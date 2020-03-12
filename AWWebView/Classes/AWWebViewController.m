@@ -69,11 +69,11 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
 
 
 #pragma mark- JSBridgeActions
-- (void)registerJSHandle:(WVJBHandler)handler {
+- (void)registerJSHandle:(nullable WVJBHandler)handler {
     [_jsBridge registerHandler:kClientRegistedMethodName handler:handler];
 }
 
-- (void)callJSFunction:(NSDictionary *)param responseCallback:(WVJBResponseCallback)responseCallback {
+- (void)callJSFunction:(nullable NSDictionary *)param responseCallback:(nullable WVJBResponseCallback)responseCallback {
     [_jsBridge callHandler:kJSHandleFunctionName data:[self convertToJsonData:param] responseCallback:responseCallback];
 }
 
