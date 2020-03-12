@@ -12,6 +12,9 @@
 {
     int _cnt;
 }
+
+
+@property (nonatomic, strong) AWWebView *webView;
 @end
 
 @implementation AWViewController
@@ -19,11 +22,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
     
-//    NSURL *url = [[NSBundle mainBundle] URLForResource:@"test" withExtension:@"html"];
-    NSURL *url = [NSURL URLWithString:@"http://10.20.56.224/test.html"];
-    [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:url]];
+    _webView = [[AWWebView alloc] init];
+    [self.view addSubview:_webView];
+    
+    _webView.translatesAutoresizingMaskIntoConstraints = NO;
+    NSArray<NSLayoutConstraint *> * constraints1 = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[w]|" options:0 metrics:nil views:@{@"w": self.webView}];
+    NSArray<NSLayoutConstraint *> * constraints2 = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[w]|" options:0 metrics:nil views:@{@"w": self.webView}];
+    [self.view addConstraints:constraints1];
+    [self.view addConstraints:constraints2];
+    
+    
+    NSString *url = [[NSBundle mainBundle] URLForResource:@"test" withExtension:@"html"].absoluteString;
+    self.webView.urlString = url;
     
     
     
@@ -39,10 +50,10 @@
     
     
     
-    [self registerJSHandle:^(id data, WVJBResponseCallback responseCallback) {
+    [self.webView registerJSHandle:^(id data, WVJBResponseCallback responseCallback) {
         NSLog(@"dataFrom JS : %@",data);
         _cnt ++;
-        responseCallback([self convertToJsonData:@{@"data": @(_cnt)}]);
+        responseCallback([self.webView convertToJsonData:@{@"data": @(_cnt)}]);
     }];
     
     
@@ -52,7 +63,7 @@
 #pragma mark-
 - (void)handleTestBtnAction
 {
-    [self callJSFunction:@{@"jsFunctionID": @1, @"param": @{@"key1": @"100", @"key2": @200}} responseCallback:^(id responseData) {
+    [self.webView callJSFunction:@{@"jsFunctionID": @1, @"param": @{@"key1": @"100", @"key2": @200}} responseCallback:^(id responseData) {
         NSLog(@"%@", responseData);
     }];
 }

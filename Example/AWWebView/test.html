@@ -43,6 +43,9 @@
 
             // 这里主要是注册 JS 方法。
             bridge.registerHandler(jsHandleFunctionName, function (data, responseCallback) {
+                                   
+                console.log(data);
+                document.getElementById("text2").innerText = data;
                 // 这里取出data里actionID 判断该做什么
                 dataObj = JSON.parse(data);
                 if (dataObj.actionID == 1) {

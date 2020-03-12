@@ -1,47 +1,47 @@
 //
-//  AWWebViewController.m
+//  AWWebView.m
 //  Pods
 //
-//  Created by zgy on 2020/3/11.
+//  Created by zgy on 2020/3/12.
 //
 
-#import "AWWebViewController.h"
+#import "AWWebView.h"
 
-
-@interface AWWebViewController ()<WKUIDelegate, WKNavigationDelegate>
+@interface AWWebView ()<WKUIDelegate, WKNavigationDelegate>
 
 @property (nonatomic, strong) WKWebViewJavascriptBridge *jsBridge;
 
 @end
 
-
 NSString *const kClientRegistedMethodName = @"clientRegistedMethod"; // 客户端注册的js handle
 NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册的方法名称
 
-@implementation AWWebViewController
+@implementation AWWebView
 @synthesize urlString = _urlString;
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
-    
-    [self.view addSubview:self.webView];
-    
-    self.webView.translatesAutoresizingMaskIntoConstraints = NO;
-    NSArray<NSLayoutConstraint *> * constraints1 = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[w]|" options:0 metrics:nil views:@{@"w": self.webView}];
-    NSArray<NSLayoutConstraint *> * constraints2 = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[w]|" options:0 metrics:nil views:@{@"w": self.webView}];
-    [self.view addConstraints:constraints1];
-    [self.view addConstraints:constraints2];
-    
-    
-    
-    
+//- (instancetype)init
+//{
+//    self = [super init];
+//    if (self) {
+//        self.webView.translatesAutoresizingMaskIntoConstraints = NO;
+//        NSArray<NSLayoutConstraint *> * constraints1 = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[w]|" options:0 metrics:nil views:@{@"w": self.webView}];
+//        NSArray<NSLayoutConstraint *> * constraints2 = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[w]|" options:0 metrics:nil views:@{@"w": self.webView}];
+//        [self addConstraints:constraints1];
+//        [self addConstraints:constraints2];
+//    }
+//    return self;
+//}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    self.webView.frame = self.bounds;
 }
 
-- (void)viewWillAppear:(BOOL)animated
+
+
+- (void)setupBridge
 {
-    [super viewWillAppear:animated];
-    
     // UI代理
     self.webView.UIDelegate = self;
     // 导航代理
@@ -50,18 +50,16 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
     // 是否允许手势左滑返回上一级, 类似导航控制的左滑返回
     self.webView.allowsBackForwardNavigationGestures = YES;
     
-    self.jsBridge = [WKWebViewJavascriptBridge bridgeForWebView:self.webView];
+    [WKWebViewJavascriptBridge enableLogging];
     [self.jsBridge setWebViewDelegate:self];
 }
-
-- (void)viewDidDisappear:(BOOL)animated
+- (void)clearDelegate
 {
-    [super viewDidDisappear:animated];
-    
     [self.jsBridge removeHandler:kClientRegistedMethodName];
     self.webView.UIDelegate = nil;
-//    self.webView.navigationDelegate = nil;
+    //    self.webView.navigationDelegate = nil;
 }
+
 
 - (void)setUrlString:(NSString *)urlString
 {
@@ -124,6 +122,7 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
 {
     if (nil == _webView) {
         _webView = [[WKWebView alloc]init];
+        [self addSubview:_webView];
     }
     return _webView;
 }
@@ -135,6 +134,8 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
     }
     return _jsBridge;
 }
+
+
 
 
 @end
