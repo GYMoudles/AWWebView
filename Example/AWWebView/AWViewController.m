@@ -7,6 +7,8 @@
 //
 
 #import "AWViewController.h"
+#import "AWAppDelegate.h"
+
 
 @interface AWViewController ()
 {
@@ -59,14 +61,43 @@
     
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.webView setupBridge];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [self.webView clearDelegate];
+}
+
+
+
 
 #pragma mark-
 - (void)handleTestBtnAction
 {
-    [self.webView callJSFunction:@{@"jsFunctionID": @1, @"param": @{@"key1": @"100", @"key2": @200}} responseCallback:^(id responseData) {
-        NSLog(@"%@", responseData);
-    }];
+    
+    if (_cnt > 10) {
+        AWAppDelegate *delegate = (AWAppDelegate *)[UIApplication sharedApplication].delegate;
+        delegate.window.rootViewController = [UIViewController new];
+        
+    }else {
+        [self.webView callJSFunction:@{@"jsFunctionID": @1, @"param": @{@"key1": @"100", @"key2": @200}} responseCallback:^(id responseData) {
+            NSLog(@"%@", responseData);
+        }];
+    }
+    
+    
+    
 }
 
 
+
+- (void)dealloc
+{
+    NSLog(@"销毁");
+}
 @end
