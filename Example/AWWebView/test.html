@@ -6,22 +6,23 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
     <title>原生js交互 测试</title>
     <script>
-        
+        /**
+            调用方法传参 统一格式 JSON格式字符串
+            {"actionID": 1, param:{"key1": "val1", "key2": "val2"}}
+
+        */
+
         const clientRegistedMethodName = "clientRegistedMethod"; // 客户端注册的js handle
         const jsHandleFunctionName = "jsRegistedFunction"; // js注册的方法名称
-
         function setupWebViewJavascriptBridge(callback) {
             if (window.WebViewJavascriptBridge) {
-                alert(1);
                 return callback(WebViewJavascriptBridge);
             } else if (window.WVJBCallbacks) {
-                alert(2)
                 return window.WVJBCallbacks.push(callback);
             } else {
                 document.addEventListener(
                     'WebViewJavascriptBridgeReady',
                     function () {
-                        alert(3);
                         return callback(WebViewJavascriptBridge)
                     },
                     false
@@ -37,15 +38,20 @@
             }, 0)
         }
 
-        // 这里主要是注册 JS 方法。
+        
         setupWebViewJavascriptBridge(function (bridge) {
 
+            // 这里主要是注册 JS 方法。
             bridge.registerHandler(jsHandleFunctionName, function (data, responseCallback) {
-
-                alert(data);
-
-                document.getElementById("text2").innerText = data;
-
+                // 这里取出data里actionID 判断该做什么
+                dataObj = JSON.parse(data);
+                if (dataObj.actionID == 1) {
+                    // dataObj.param 为用户信息, 这里js后续处理
+                    
+                }
+                
+                
+                // 如果需要返回结果给原生调用下面的方法
                 result = {
                     info: 'js执行后返回的结果'
                 };
@@ -67,7 +73,7 @@
         function handleBtnAction() {
 
             param = {
-                actionID: 1,
+                actionID: 1, // 代表调用原生，登录超时，返回登录页面。 此时不需要param
                 param: {
                     key1: 1,
                     key2: '2',
@@ -75,7 +81,7 @@
             }
 
             WebViewJavascriptBridge.callHandler(clientRegistedMethodName, JSON.stringify(param), function (result) {
-                // js 调用客户端， 客户端返回的结果
+                // js 调用客户端， 如果客户端有返回值， 就是这个result
                 document.getElementById("text").innerText = result;
             })
         }
