@@ -64,7 +64,7 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
     }
     _urlString = [urlString copy];
     NSURL *url = [NSURL URLWithString:_urlString];
-    [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
+    [self.webView loadRequest:[NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:20]];
 }
 
 
