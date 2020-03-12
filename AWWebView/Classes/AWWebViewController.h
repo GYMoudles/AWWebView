@@ -24,7 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)registerJSHandle:(nullable WVJBHandler)handler;
 - (void)callJSFunction:(nullable NSDictionary *)param responseCallback:(nullable WVJBResponseCallback)responseCallback;
 
-- (NSString *)convertToJsonData:(NSDictionary *)dict;
+
+- (NSString *)convertToJsonData:(NSDictionary *)dict; // 方便子类调用
 @end
 
 NS_ASSUME_NONNULL_END

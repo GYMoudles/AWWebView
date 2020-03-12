@@ -45,20 +45,20 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
     // UI代理
     self.webView.UIDelegate = self;
     // 导航代理
-    // _webView.navigationDelegate = self; // 用了jsBridge，使用setWebViewDelegate方法
+    // self.webView.navigationDelegate = self; // 用了jsBridge，使用setWebViewDelegate方法
     
     // 是否允许手势左滑返回上一级, 类似导航控制的左滑返回
     self.webView.allowsBackForwardNavigationGestures = YES;
     
-    _jsBridge = [WKWebViewJavascriptBridge bridgeForWebView:self.webView];
-    [_jsBridge setWebViewDelegate:self];
+    self.jsBridge = [WKWebViewJavascriptBridge bridgeForWebView:self.webView];
+    [self.jsBridge setWebViewDelegate:self];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
     
-    [_jsBridge removeHandler:kClientRegistedMethodName];
+    [self.jsBridge removeHandler:kClientRegistedMethodName];
     self.webView.UIDelegate = nil;
 //    self.webView.navigationDelegate = nil;
 }
@@ -76,11 +76,11 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
 
 #pragma mark- JSBridgeActions
 - (void)registerJSHandle:(nullable WVJBHandler)handler {
-    [_jsBridge registerHandler:kClientRegistedMethodName handler:handler];
+    [self.jsBridge registerHandler:kClientRegistedMethodName handler:handler];
 }
 
 - (void)callJSFunction:(nullable NSDictionary *)param responseCallback:(nullable WVJBResponseCallback)responseCallback {
-    [_jsBridge callHandler:kJSHandleFunctionName data:[self convertToJsonData:param] responseCallback:responseCallback];
+    [self.jsBridge callHandler:kJSHandleFunctionName data:[self convertToJsonData:param] responseCallback:responseCallback];
 }
 
 
@@ -126,6 +126,14 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
         _webView = [[WKWebView alloc]init];
     }
     return _webView;
+}
+
+- (WKWebViewJavascriptBridge *)jsBridge
+{
+    if (nil == _jsBridge) {
+        _jsBridge = [WKWebViewJavascriptBridge bridgeForWebView:self.webView];
+    }
+    return _jsBridge;
 }
 
 
