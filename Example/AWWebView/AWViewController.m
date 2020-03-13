@@ -70,7 +70,7 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    [self.webView clearDelegates];
+    [self.webView clearDelegatesAndRegistedHadle];
 }
 
 

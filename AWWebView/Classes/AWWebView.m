@@ -53,7 +53,7 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
     [WKWebViewJavascriptBridge enableLogging];
     [self.jsBridge setWebViewDelegate:self];
 }
-- (void)clearDelegates
+- (void)clearDelegatesAndRegistedHadle
 {
     [self.jsBridge removeHandler:kClientRegistedMethodName];
     self.webView.UIDelegate = nil;
