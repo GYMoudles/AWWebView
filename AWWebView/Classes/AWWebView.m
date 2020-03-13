@@ -9,7 +9,6 @@
 
 @interface AWWebView ()<WKUIDelegate, WKNavigationDelegate>
 
-@property (nonatomic, strong) WKWebViewJavascriptBridge *jsBridge;
 
 @end
 
@@ -17,7 +16,7 @@ NSString *const kClientRegistedMethodName = @"clientRegistedMethod"; // 客户�
 NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册的方法名称
 
 @implementation AWWebView
-@synthesize urlString = _urlString;
+@synthesize urlString = _urlString, webView = _webView, jsBridge = _jsBridge;
 
 //- (instancetype)init
 //{

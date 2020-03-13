@@ -51,12 +51,6 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[btn(==30)]-60-|" options:0 metrics:nil views:@{@"btn": testBtn}]];
     
     
-    [self.webView registerJSHandle:^(id data, WVJBResponseCallback responseCallback) {
-        NSLog(@"dataFrom JS : %@",data);
-        _cnt ++;
-        responseCallback([AWWebView convertToJson:@{@"data": @(_cnt)}]);
-    }];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -64,7 +58,11 @@
     [super viewWillAppear:animated];
     [self.webView setupDelegates];
     
-    
+    [self.webView registerJSHandle:^(id data, WVJBResponseCallback responseCallback) {
+        NSLog(@"dataFrom JS : %@",data);
+        _cnt ++;
+        responseCallback([AWWebView convertToJson:@{@"data": @(_cnt)}]);
+    }];
 }
 
 - (void)viewDidDisappear:(BOOL)animated

@@ -14,7 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AWWebView : UIView
 
-@property (nonatomic, strong) WKWebView *webView;
+@property (nonatomic, strong, readonly) WKWebView *webView;
+@property (nonatomic, strong, readonly) WKWebViewJavascriptBridge *jsBridge;
 @property (nonatomic,   copy) NSString *urlString;
 
 - (void)registerJSHandle:(nullable WVJBHandler)handler; // 页面消失时如果被清理了，在页面出现时注册
