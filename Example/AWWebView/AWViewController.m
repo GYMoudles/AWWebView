@@ -10,7 +10,7 @@
 #import "AWAppDelegate.h"
 
 
-@interface AWViewController ()
+@interface AWViewController ()<WKNavigationDelegate, AWWebViewDelegate>
 {
     int _cnt;
 }
@@ -37,7 +37,7 @@
     
     NSString *url = [[NSBundle mainBundle] URLForResource:@"test" withExtension:@"html"].absoluteString;
     self.webView.urlString = url;
-    
+    self.webView.delegate = self;
     
     
     UIButton *testBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -71,6 +71,18 @@
     [self.webView clearDelegatesAndRegistedHadle];
 }
 
+#pragma mark- <WKNavigationDelegate, AWWebViewDelegate>
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error
+{
+    NSLog(@"加载失败");
+    self.webView.tipBaseView.hidden = NO;
+}
+
+- (void)webViewdidTapTipView:(AWWebView *)webView
+{
+    self.webView.tipBaseView.hidden = YES;
+    [self.webView.webView reload];
+}
 
 
 

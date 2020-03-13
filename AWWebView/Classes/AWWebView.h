@@ -40,9 +40,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)clearDelegatesAndRegistedHadle; /// 页面消失时调用，清理代理和注册的handle
 
 
-/// 显示提示视图，加载到webView上
-- (void)showTipInfoView;
-
 + (NSString *)convertToJson:(id)obj; // 方便其他类调用
 
 + (id)convertDataWithJsonString:(NSString *)jsonString;

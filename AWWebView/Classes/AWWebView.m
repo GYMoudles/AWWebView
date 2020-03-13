@@ -40,13 +40,8 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
 {
     [super layoutSubviews];
     self.webView.frame = self.bounds;
-    
 }
 
-- (void)showTipInfoView
-{
-    self.tipBaseView.hidden = NO;
-}
 
 - (void)setupDelegates
 {
