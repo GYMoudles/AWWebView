@@ -54,7 +54,7 @@
     [self.webView registerJSHandle:^(id data, WVJBResponseCallback responseCallback) {
         NSLog(@"dataFrom JS : %@",data);
         _cnt ++;
-        responseCallback([self.webView convertToJsonData:@{@"data": @(_cnt)}]);
+        responseCallback([AWWebView convertToJson:@{@"data": @(_cnt)}]);
     }];
     
 }
@@ -62,7 +62,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.webView setupBridge];
+    [self.webView setupDelegates];
     
     
 }
@@ -70,7 +70,7 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    [self.webView clearDelegate];
+    [self.webView clearDelegates];
 }
 
 

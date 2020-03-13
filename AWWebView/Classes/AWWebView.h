@@ -20,11 +20,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)callJSFunction:(nullable NSDictionary *)param responseCallback:(nullable WVJBResponseCallback)responseCallback;
 
 
-- (void)setupBridge; /// 页面出现时调用
-- (void)clearDelegate; /// 页面消失时调用
+
+- (void)setupDelegates;/// 页面出现时调用
+- (void)clearDelegates; /// 页面消失时调用
 
 
-- (NSString *)convertToJsonData:(NSDictionary *)dict; // 方便子类调用
++ (NSString *)convertToJson:(id)obj; // 方便其他类调用
+
++ (id)convertDataWithJsonString:(NSString *)jsonString;
 
 @end
 

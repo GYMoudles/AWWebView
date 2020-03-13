@@ -40,7 +40,7 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
 
 
 
-- (void)setupBridge
+- (void)setupDelegates
 {
     // UI代理
     self.webView.UIDelegate = self;
@@ -53,7 +53,7 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
     [WKWebViewJavascriptBridge enableLogging];
     [self.jsBridge setWebViewDelegate:self];
 }
-- (void)clearDelegate
+- (void)clearDelegates
 {
     [self.jsBridge removeHandler:kClientRegistedMethodName];
     self.webView.UIDelegate = nil;
@@ -78,7 +78,7 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
 }
 
 - (void)callJSFunction:(nullable NSDictionary *)param responseCallback:(nullable WVJBResponseCallback)responseCallback {
-    [self.jsBridge callHandler:kJSHandleFunctionName data:[self convertToJsonData:param] responseCallback:responseCallback];
+    [self.jsBridge callHandler:kJSHandleFunctionName data:[AWWebView convertToJson:param] responseCallback:responseCallback];
 }
 
 
@@ -92,10 +92,10 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
 
 
 #pragma mark- Helper
-- (NSString *)convertToJsonData:(NSDictionary *)dict
++ (NSString *)convertToJson:(id)obj
 {
     NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&error];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:obj options:NSJSONWritingPrettyPrinted error:&error];
     NSString *jsonString;
     
     if (!jsonData) {
@@ -114,6 +114,21 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
     // 去掉字符串中的换行符
     [mutStr replaceOccurrencesOfString:@"\n" withString:@"" options:NSLiteralSearch range:range2];
     return mutStr;
+}
+
++ (id)convertDataWithJsonString:(NSString *)jsonString
+{
+    if (jsonString == nil) {
+        return nil;
+    }
+    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *err;
+    id obj = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&err];
+    if(err) {
+        NSLog(@"json解析失败：%@",err);
+        return nil;
+    }
+    return obj;
 }
 
 #pragma mark- lazy
