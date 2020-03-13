@@ -15,7 +15,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  AWWebView: 77f80158df8dde7bb11b808f3027ea77e97f7bec
+  AWWebView: 91fdf43ce1dbb9d68f2ed665bdc5fa8bc00faee5
   WebViewJavascriptBridge: 7f5bc4d3581e672e8f32bd0f812d54bc69bb8e29
 
 PODFILE CHECKSUM: 89e757e63d54a8b98550ccb2d406865eb4952a32

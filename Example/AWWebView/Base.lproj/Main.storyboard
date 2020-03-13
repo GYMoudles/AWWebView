@@ -18,7 +18,37 @@
                     <view key="view" contentMode="scaleToFill" id="TpU-gO-2f1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JzT-ZB-pok">
+                                <rect key="frame" x="16" y="0.0" width="343" height="667"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="d9F-lv-h3g">
+                                        <rect key="frame" x="141.5" y="303.5" width="60" height="60"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qdp-9O-SIz">
+                                                <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="60" id="A2c-rU-Sd5"/>
+                                                    <constraint firstAttribute="width" constant="60" id="AVe-SE-oUW"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="d9F-lv-h3g" firstAttribute="centerY" secondItem="JzT-ZB-pok" secondAttribute="centerY" id="PM8-l3-ltk"/>
+                                    <constraint firstItem="d9F-lv-h3g" firstAttribute="centerX" secondItem="JzT-ZB-pok" secondAttribute="centerX" id="XjN-0u-jHo"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="JzT-ZB-pok" secondAttribute="trailing" constant="0.01" id="22d-bK-1sR"/>
+                            <constraint firstItem="JzT-ZB-pok" firstAttribute="leading" secondItem="TpU-gO-2f1" secondAttribute="leadingMargin" constant="0.01" id="JzJ-tv-dKI"/>
+                            <constraint firstItem="JzT-ZB-pok" firstAttribute="top" secondItem="uEw-UM-LJ8" secondAttribute="bottom" constant="0.01" id="jFG-v0-L4D"/>
+                            <constraint firstItem="Mvr-aV-6Um" firstAttribute="top" secondItem="JzT-ZB-pok" secondAttribute="bottom" constant="0.01" id="z39-kY-5dV"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tc2-Qw-aMS" userLabel="First Responder" sceneMemberID="firstResponder"/>

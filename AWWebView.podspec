@@ -28,13 +28,32 @@ TODO: Add long description of the pod here.
   s.source           = { :git => 'https://github.com/maltsugar/AWWebView.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '9.0'
 
   s.source_files = 'AWWebView/Classes/**/*'
   
-  # s.resource_bundles = {
-  #   'AWWebView' => ['AWWebView/Assets/*.png']
-  # }
+
+  s.resource_bundles = {
+      'AWWebView' => ['AWWebView/Classes/**/*.xib', 'AWWebView/Assets/*.xcassets']
+  }
+  
+  s.prefix_header_contents = <<-EOS
+  #ifdef __OBJC__
+  #import <UIKit/UIKit.h>
+  
+  #define kAWWebViewBundleName @"AWWebView"
+  
+  #else
+  #ifndef FOUNDATION_EXPORT
+  #if defined(__cplusplus)
+  #define FOUNDATION_EXPORT extern "C"
+  #else
+  #define FOUNDATION_EXPORT extern
+  #endif
+  #endif
+  #endif
+  EOS
+  
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'

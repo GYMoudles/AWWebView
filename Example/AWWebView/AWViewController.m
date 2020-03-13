@@ -77,19 +77,17 @@
 #pragma mark-
 - (void)handleTestBtnAction
 {
-    
+
     if (_cnt > 10) {
         AWAppDelegate *delegate = (AWAppDelegate *)[UIApplication sharedApplication].delegate;
         delegate.window.rootViewController = [UIViewController new];
-        
+
     }else {
         [self.webView callJSFunction:@{@"jsFunctionID": @1, @"param": @{@"key1": @"100", @"key2": @200}} responseCallback:^(id responseData) {
             NSLog(@"%@", responseData);
         }];
     }
-    
-    
-    
+
 }
 
 

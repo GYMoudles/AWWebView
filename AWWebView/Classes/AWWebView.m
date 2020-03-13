@@ -7,8 +7,10 @@
 
 #import "AWWebView.h"
 
+API_AVAILABLE(ios(9.0))
 @interface AWWebView ()<WKUIDelegate, WKNavigationDelegate>
 
+@property (nonatomic, strong) UIStackView *tipStackView;
 
 @end
 
@@ -16,28 +18,35 @@ NSString *const kClientRegistedMethodName = @"clientRegistedMethod"; // 客户�
 NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册的方法名称
 
 @implementation AWWebView
-@synthesize urlString = _urlString, webView = _webView, jsBridge = _jsBridge;
+//@synthesize urlString = _urlString;
 
-//- (instancetype)init
-//{
-//    self = [super init];
-//    if (self) {
-//        self.webView.translatesAutoresizingMaskIntoConstraints = NO;
-//        NSArray<NSLayoutConstraint *> * constraints1 = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[w]|" options:0 metrics:nil views:@{@"w": self.webView}];
-//        NSArray<NSLayoutConstraint *> * constraints2 = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[w]|" options:0 metrics:nil views:@{@"w": self.webView}];
-//        [self addConstraints:constraints1];
-//        [self addConstraints:constraints2];
-//    }
-//    return self;
-//}
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _webView = [[WKWebView alloc]init];
+        _jsBridge = [WKWebViewJavascriptBridge bridgeForWebView:_webView];
+        [self addSubview:_webView];
+        
+        self.tipBaseView.backgroundColor = [UIColor whiteColor];
+        [self.tipStackView addArrangedSubview:self.tipImgView];
+        [self.tipStackView addArrangedSubview:self.tipLab];
+        self.tipBaseView.hidden = YES;
+    }
+    return self;
+}
 
 - (void)layoutSubviews
 {
     [super layoutSubviews];
     self.webView.frame = self.bounds;
+    
 }
 
-
+- (void)showTipInfoView
+{
+    self.tipBaseView.hidden = NO;
+}
 
 - (void)setupDelegates
 {
@@ -70,6 +79,13 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
     [self.webView loadRequest:[NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:20]];
 }
 
+- (void)handleTipBaseViewTapAction
+{
+    if ([self.delegate respondsToSelector:@selector(webViewdidTapTipView:)]) {
+        [self.delegate webViewdidTapTipView:self];
+    }
+}
+
 
 #pragma mark- JSBridgeActions
 - (void)registerJSHandle:(nullable WVJBHandler)handler {
@@ -86,6 +102,13 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
 {
     NSLog(@"js alert()内容: %@", message);
     completionHandler();
+}
+
+#pragma mark- WKNavigationDelegate
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error
+{
+    NSLog(@"请求失败");
+    
 }
 
 
@@ -130,17 +153,96 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
     return obj;
 }
 
-#pragma mark- lazy
-
-- (WKWebView *)webView
++ (UIImage *)awImageName:(NSString *)imageName forClass:(Class)cls bundleName:(NSString *)bundleName
 {
-    if (nil == _webView) {
-        _webView = [[WKWebView alloc]init];
-        _jsBridge = [WKWebViewJavascriptBridge bridgeForWebView:_webView];
-        [self addSubview:_webView];
-    }
-    return _webView;
+    NSBundle *bundle = [AWWebView awBundleForClass:cls bundleName:bundleName];
+    return [UIImage imageNamed:imageName inBundle:bundle compatibleWithTraitCollection:nil];
 }
 
+
+
++ (NSBundle *)awBundleForClass:(Class)cls bundleName:(NSString *)name
+{
+//    NSBundle *bundle = [NSBundle bundleForClass:cls];
+//    NSURL *url = [bundle URLForResource:name withExtension:@"bundle"];
+//    return [self bundleWithURL:url];
+    
+    NSBundle *mainBundle = [NSBundle bundleForClass:cls];
+    NSBundle *resourcesBundle = [NSBundle bundleWithPath:[mainBundle pathForResource:name ofType:@"bundle"]];
+    if (nil != resourcesBundle) {
+        mainBundle = resourcesBundle;
+    }
+    return mainBundle;
+}
+
+
+
+
+
+#pragma mark- lazy
+- (UIStackView *)tipStackView API_AVAILABLE(ios(9.0)) {
+    if (nil == _tipStackView) {
+        _tipStackView = [[UIStackView alloc]init];
+        _tipStackView.axis = UILayoutConstraintAxisVertical;
+        _tipStackView.distribution = UIStackViewDistributionEqualCentering;
+        _tipStackView.alignment = UIStackViewAlignmentCenter;
+        _tipStackView.spacing = 20;
+    }
+    return _tipStackView;
+}
+
+- (UIView *)tipBaseView
+{
+    if (nil == _tipBaseView) {
+        _tipBaseView = [[UIView alloc]init];
+        [self addSubview:_tipBaseView];
+        _tipBaseView.translatesAutoresizingMaskIntoConstraints = NO;
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[s]|" options:0 metrics:nil views:@{@"s": _tipBaseView}]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[s]|" options:0 metrics:nil views:@{@"s": _tipBaseView}]];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTipBaseViewTapAction)];
+        [_tipBaseView addGestureRecognizer:tap];
+        
+        
+        [_tipBaseView addSubview:self.tipStackView];
+        self.tipStackView.translatesAutoresizingMaskIntoConstraints = NO;
+        [_tipBaseView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[superview]-(<=0)-[s]" options:NSLayoutFormatAlignAllCenterX metrics:nil views:@{@"s": self.tipStackView, @"superview": _tipBaseView}]];
+        [_tipBaseView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[superview]-(<=0)-[s]" options:NSLayoutFormatAlignAllCenterY metrics:nil views:@{@"s": self.tipStackView, @"superview": _tipBaseView}]];
+        
+    }
+    return _tipBaseView;
+}
+
+
+- (UIImageView *)tipImgView
+{
+    if (nil == _tipImgView) {
+        _tipImgView = [[UIImageView alloc]init];
+        [self.tipStackView addArrangedSubview:_tipImgView];
+        
+        _tipImgView.translatesAutoresizingMaskIntoConstraints = NO;
+        _tipImgView.image = [AWWebView awImageName:@"reload" forClass:[self class] bundleName:kAWWebViewBundleName];
+        [_tipImgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[i(60)]" options:0 metrics:nil views:@{@"i": _tipImgView}]];
+        [_tipImgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[i(60)]" options:0 metrics:nil views:@{@"i": _tipImgView}]];
+        
+    }
+    return _tipImgView;
+}
+
+- (UILabel *)tipLab
+{
+    if (nil == _tipLab) {
+        _tipLab = [[UILabel alloc]init];
+        [self.tipStackView addArrangedSubview:_tipLab];
+        
+        _tipLab.translatesAutoresizingMaskIntoConstraints = NO;
+        _tipLab.text = @"请检查网络，并刷新页面";
+        _tipLab.textColor = [UIColor darkGrayColor];
+        _tipLab.font = [UIFont systemFontOfSize:15];
+        [_tipLab addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[i(30)]" options:0 metrics:nil views:@{@"i": _tipLab}]];
+//        [_tipLab addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[i(160)]" options:0 metrics:nil views:@{@"i": _tipLab}]];
+    }
+    return _tipLab;
+}
 
 @end
