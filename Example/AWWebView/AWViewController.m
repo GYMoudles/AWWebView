@@ -51,13 +51,11 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[btn(==30)]-60-|" options:0 metrics:nil views:@{@"btn": testBtn}]];
     
     
-    
     [self.webView registerJSHandle:^(id data, WVJBResponseCallback responseCallback) {
         NSLog(@"dataFrom JS : %@",data);
         _cnt ++;
         responseCallback([self.webView convertToJsonData:@{@"data": @(_cnt)}]);
     }];
-    
     
 }
 
@@ -65,6 +63,8 @@
 {
     [super viewWillAppear:animated];
     [self.webView setupBridge];
+    
+    
 }
 
 - (void)viewDidDisappear:(BOOL)animated

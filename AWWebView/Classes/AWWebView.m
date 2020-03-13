@@ -122,20 +122,11 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
 {
     if (nil == _webView) {
         _webView = [[WKWebView alloc]init];
+        _jsBridge = [WKWebViewJavascriptBridge bridgeForWebView:_webView];
         [self addSubview:_webView];
     }
     return _webView;
 }
-
-- (WKWebViewJavascriptBridge *)jsBridge
-{
-    if (nil == _jsBridge) {
-        _jsBridge = [WKWebViewJavascriptBridge bridgeForWebView:self.webView];
-    }
-    return _jsBridge;
-}
-
-
 
 
 @end
