@@ -32,6 +32,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIImageView *tipImgView;
 
 
+/**
+    调用方法传参 统一格式 JSON格式字符串
+    {"actionID": 1, param:{"key1": "val1", "key2": "val2"}}
+*/
 - (void)registerJSHandle:(nullable WVJBHandler)handler; // 页面消失时如果被清理了，在页面出现时注册
 - (void)callJSFunction:(nullable NSDictionary *)param responseCallback:(nullable WVJBResponseCallback)responseCallback;
 
