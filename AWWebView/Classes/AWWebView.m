@@ -148,6 +148,23 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
     return obj;
 }
 
+
+- (nullable id)getValueInParamWithKey:(NSString *)key dict:(id)dict;
+{
+    if (![dict isKindOfClass:[NSDictionary class]]) {
+        return nil;
+    }
+    NSDictionary *dic = (NSDictionary *)dict;
+    
+    if([dic[@"param"] isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *param = (NSDictionary *)dic[@"param"];
+        return param[key];
+    }
+    return nil;
+}
+
+
+
 + (UIImage *)awImageName:(NSString *)imageName forClass:(Class)cls bundleName:(NSString *)bundleName
 {
     NSBundle *bundle = [AWWebView awBundleForClass:cls bundleName:bundleName];

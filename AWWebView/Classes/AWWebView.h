@@ -44,9 +44,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)clearDelegatesAndRegistedHadle; /// 页面消失时调用，清理代理和注册的handle
 
 
-+ (NSString *)convertToJson:(id)obj; // 方便其他类调用
 
+// helpers
++ (NSString *)convertToJson:(id)obj; // 方便其他类调用
 + (id)convertDataWithJsonString:(NSString *)jsonString;
+
+
+- (nullable id)getValueInParamWithKey:(NSString *)key dict:(id)dic;
 
 @end
 
