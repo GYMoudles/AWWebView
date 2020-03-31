@@ -149,7 +149,7 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
 }
 
 
-- (nullable id)getValueInParamWithKey:(NSString *)key dict:(id)dict;
++ (nullable id)getValueInParamWithKey:(NSString *)key dict:(id)dict
 {
     if (![dict isKindOfClass:[NSDictionary class]]) {
         return nil;

@@ -50,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (id)convertDataWithJsonString:(NSString *)jsonString;
 
 
-- (nullable id)getValueInParamWithKey:(NSString *)key dict:(id)dic;
++ (nullable id)getValueInParamWithKey:(NSString *)key dict:(id)dict;
 
 @end
 
