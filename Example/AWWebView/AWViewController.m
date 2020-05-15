@@ -61,7 +61,7 @@
     [self.webView registerJSHandle:^(id data, WVJBResponseCallback responseCallback) {
         NSLog(@"dataFrom JS : %@",data);
         _cnt ++;
-        responseCallback([AWWebView convertToJson:@{@"data": @(_cnt)}]);
+        responseCallback([AWWebView convertToJson:@{@"data": @(_cnt)} removeSpace:NO]);
     }];
 }
 

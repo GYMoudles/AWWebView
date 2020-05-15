@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 // helpers
-+ (NSString *)convertToJson:(id)obj; // 方便其他类调用
++ (NSString *)convertToJson:(id)obj removeSpace:(BOOL)removeSpace; // 方便其他类调用
 + (id)convertDataWithJsonString:(NSString *)jsonString;
 
 

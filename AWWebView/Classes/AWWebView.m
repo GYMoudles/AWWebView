@@ -88,7 +88,7 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
 }
 
 - (void)callJSFunction:(nullable NSDictionary *)param responseCallback:(nullable WVJBResponseCallback)responseCallback {
-    [self.jsBridge callHandler:kJSHandleFunctionName data:[AWWebView convertToJson:param] responseCallback:responseCallback];
+    [self.jsBridge callHandler:kJSHandleFunctionName data:[AWWebView convertToJson:param removeSpace:NO] responseCallback:responseCallback];
 }
 
 
@@ -109,7 +109,7 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
 
 
 #pragma mark- Helper
-+ (NSString *)convertToJson:(id)obj
++ (NSString *)convertToJson:(id)obj removeSpace:(BOOL)removeSpace
 {
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:obj options:NSJSONWritingPrettyPrinted error:&error];
@@ -122,14 +122,14 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
     }
     
     NSMutableString *mutStr = [NSMutableString stringWithString:jsonString];
-    NSRange range = {0, jsonString.length};
-    
-    // 去掉字符串中的空格
-    [mutStr replaceOccurrencesOfString:@" " withString:@"" options:NSLiteralSearch range:range];
-    NSRange range2 = {0, mutStr.length};
-    
-    // 去掉字符串中的换行符
-    [mutStr replaceOccurrencesOfString:@"\n" withString:@"" options:NSLiteralSearch range:range2];
+    if (removeSpace) {
+        NSRange range = {0, jsonString.length};
+        // 去掉字符串中的空格
+        [mutStr replaceOccurrencesOfString:@" " withString:@"" options:NSLiteralSearch range:range];
+        NSRange range2 = {0, mutStr.length};
+        // 去掉字符串中的换行符
+        [mutStr replaceOccurrencesOfString:@"\n" withString:@"" options:NSLiteralSearch range:range2];
+    }
     return mutStr;
 }
 
