@@ -53,7 +53,11 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
     // 是否允许手势左滑返回上一级, 类似导航控制的左滑返回
     self.webView.allowsBackForwardNavigationGestures = YES;
     
-    [WKWebViewJavascriptBridge enableLogging];
+    if (_enableLog) {
+        [WKWebViewJavascriptBridge enableLogging];
+    }
+    
+    
     [self.jsBridge setWebViewDelegate:self];
 }
 - (void)clearDelegatesAndRegistedHadle
@@ -175,9 +179,9 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
 
 + (NSBundle *)awBundleForClass:(Class)cls bundleName:(NSString *)name
 {
-//    NSBundle *bundle = [NSBundle bundleForClass:cls];
-//    NSURL *url = [bundle URLForResource:name withExtension:@"bundle"];
-//    return [self bundleWithURL:url];
+    //    NSBundle *bundle = [NSBundle bundleForClass:cls];
+    //    NSURL *url = [bundle URLForResource:name withExtension:@"bundle"];
+    //    return [self bundleWithURL:url];
     
     NSBundle *mainBundle = [NSBundle bundleForClass:cls];
     NSBundle *resourcesBundle = [NSBundle bundleWithPath:[mainBundle pathForResource:name ofType:@"bundle"]];
@@ -233,7 +237,7 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
         [self.tipStackView addArrangedSubview:_tipImgView];
         
         _tipImgView.translatesAutoresizingMaskIntoConstraints = NO;
-        _tipImgView.image = [AWWebView awImageName:@"reload" forClass:[self class] bundleName:kAWWebViewBundleName];
+        _tipImgView.image = kImageNamed(@"reload");
         [_tipImgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[i(60)]" options:0 metrics:nil views:@{@"i": _tipImgView}]];
         [_tipImgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[i(60)]" options:0 metrics:nil views:@{@"i": _tipImgView}]];
         
@@ -252,7 +256,7 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
         _tipLab.textColor = [UIColor darkGrayColor];
         _tipLab.font = [UIFont systemFontOfSize:15];
         [_tipLab addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[i(30)]" options:0 metrics:nil views:@{@"i": _tipLab}]];
-//        [_tipLab addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[i(160)]" options:0 metrics:nil views:@{@"i": _tipLab}]];
+        //        [_tipLab addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[i(160)]" options:0 metrics:nil views:@{@"i": _tipLab}]];
     }
     return _tipLab;
 }

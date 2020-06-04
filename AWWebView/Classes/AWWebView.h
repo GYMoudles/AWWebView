@@ -7,7 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
-#import <WebViewJavascriptBridge/WKWebViewJavascriptBridge.h>
+#import "WKWebViewJavascriptBridge.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) WKWebView *webView;
 @property (nonatomic, strong, readonly) WKWebViewJavascriptBridge *jsBridge;
 @property (nonatomic,   copy) NSString *urlString;
-
+@property (nonatomic, assign) BOOL enableLog;
 @property (nonatomic, weak, nullable) id<AWWebViewDelegate> delegate;
 // 提示相关视图
 @property (nonatomic, strong) UIView *tipBaseView;
