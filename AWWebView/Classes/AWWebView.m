@@ -115,6 +115,9 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
 #pragma mark- Helper
 + (NSString *)convertToJson:(id)obj removeSpace:(BOOL)removeSpace
 {
+    if (!obj) {
+        return @"";
+    }
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:obj options:NSJSONWritingPrettyPrinted error:&error];
     NSString *jsonString;
@@ -237,7 +240,7 @@ NSString *const kJSHandleFunctionName = @"jsRegistedFunction"; // js端 注册�
         [self.tipStackView addArrangedSubview:_tipImgView];
         
         _tipImgView.translatesAutoresizingMaskIntoConstraints = NO;
-        _tipImgView.image = kImageNamed(@"reload");
+        _tipImgView.image = [UIImage imageNamed:@"reload"];
         [_tipImgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[i(60)]" options:0 metrics:nil views:@{@"i": _tipImgView}]];
         [_tipImgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[i(60)]" options:0 metrics:nil views:@{@"i": _tipImgView}]];
         
