@@ -25,6 +25,7 @@
 		7A29E8F4D5852F7DF1F6FD28 /* Pods_AWWebView_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 143B35A1873125C237D362D6 /* Pods_AWWebView_Example.framework */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		B9358B8C2418ADD7000999BB /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = B9358B8B2418ADD7000999BB /* test.html */; };
+		B94833872501F5E800A814DD /* bridge.js in Resources */ = {isa = PBXBuildFile; fileRef = B94833862501F5E800A814DD /* bridge.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,7 @@
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AD786C0C9358810DDBC3A117 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		B9358B8B2418ADD7000999BB /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test.html; sourceTree = "<group>"; };
+		B94833862501F5E800A814DD /* bridge.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = bridge.js; sourceTree = "<group>"; };
 		EF87C4FB562F7E37CD0115CA /* Pods-AWWebView_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AWWebView_Example.release.xcconfig"; path = "Target Support Files/Pods-AWWebView_Example/Pods-AWWebView_Example.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -146,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				B9358B8B2418ADD7000999BB /* test.html */,
+				B94833862501F5E800A814DD /* bridge.js */,
 				6003F59C195388D20070C39A /* AWAppDelegate.h */,
 				6003F59D195388D20070C39A /* AWAppDelegate.m */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
@@ -285,6 +288,7 @@
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				B9358B8C2418ADD7000999BB /* test.html in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
+				B94833872501F5E800A814DD /* bridge.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

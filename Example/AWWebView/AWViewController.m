@@ -56,6 +56,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    self.webView.enableLog = YES;
     [self.webView setupDelegates];
     
     [self.webView registerJSHandle:^(id data, WVJBResponseCallback responseCallback) {
