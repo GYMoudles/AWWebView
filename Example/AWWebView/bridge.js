@@ -86,5 +86,7 @@ setupWebViewJavascriptBridge(function (bridge) {
  * @param {*} cb: App执行之后的回调，类型为function(result), js处理result
  */
 function callApp(param, cb) {
-    WebViewJavascriptBridge.callHandler(clientRegistedMethodName, JSON.stringify(param), cb)
+    if (window.WebViewJavascriptBridge) {
+        window.WebViewJavascriptBridge.callHandler(clientRegistedMethodName, JSON.stringify(param), cb)
+    }
 }
