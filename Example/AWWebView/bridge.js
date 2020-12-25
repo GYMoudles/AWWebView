@@ -2,8 +2,8 @@
  * script标签引入该js， 即可调用callApp
  * vue项目，在main.js引入该js，其他页面引入callApp即可调用callApp
  *
- * 调用方法传参 统一格式 JSON格式字符串
- * {"actionID": 1, param:{"key1": "val1", "key2": "val2"}}
+ * 调用方法传参 统一格式 JSON格式字符串, 使用封装好的callApp方法，直接传js对象即可，方法内部已经转换JSON字符串了
+ * {actionID: 1, param: {key1: "val1", key2: someOtherVal}}
  */
 
 const clientRegistedMethodName = "clientRegistedMethod"; // 客户端注册的js handle
@@ -70,7 +70,7 @@ setupWebViewJavascriptBridge(function (bridge) {
 
 /**
  * 调用App方法 （使用的地方 导入此函数即可）
- * @param {*} param: 参数对象 {"actionID": 1, param:{"key1": "val1", "key2": "val2"}}
+ * @param {*} param: 参数对象,js对象即可，方法内部转换为JSON字符串，如： {actionID: 1, param: {key1: "val1", key2: someOtherVal}}
  * @param {*} cb: App执行之后的回调，类型为function(result), js处理result
  */
 function callApp(param, cb) {
