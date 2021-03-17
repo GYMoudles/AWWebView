@@ -73,7 +73,7 @@ setupWebViewJavascriptBridge(function (bridge) {
  * @param {*} param: 参数对象,js对象即可，方法内部转换为JSON字符串，如： {actionID: 1, param: {key1: "val1", key2: someOtherVal}}
  * @param {*} cb: App执行之后的回调，类型为function(result), js处理result
  */
-function callApp(param, cb) {
+export function callApp(param, cb) {
   if (window.WebViewJavascriptBridge) {
     window.WebViewJavascriptBridge.callHandler(
       clientRegistedMethodName,
