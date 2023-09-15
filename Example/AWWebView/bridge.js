@@ -60,12 +60,15 @@ setupWebViewJavascriptBridge(function (bridge) {
   bridge.registerHandler(jsHandleFunctionName, dealAppRequest);
 
   // 初始化
-  bridge.init(function (message, responseCallback) {
-    var data = {
-      "Javascript Responds": "Wee!",
-    };
-    responseCallback(data);
-  });
+    if (bridge.init) {
+        bridge.init(function (message, responseCallback) {
+          var data = {
+            "Javascript Responds": "Wee!",
+          };
+          responseCallback(data);
+        });
+    }
+  
 });
 
 /**
@@ -73,7 +76,8 @@ setupWebViewJavascriptBridge(function (bridge) {
  * @param {*} param: 参数对象,js对象即可，方法内部转换为JSON字符串，如： {actionID: 1, param: {key1: "val1", key2: someOtherVal}}
  * @param {*} cb: App执行之后的回调，类型为function(result), js处理result
  */
-export function callApp(param, cb) {
+//export function callApp(param, cb) {
+function callApp(param, cb) {
   if (window.WebViewJavascriptBridge) {
     window.WebViewJavascriptBridge.callHandler(
       clientRegistedMethodName,
